@@ -1,6 +1,8 @@
 <template>
   <div>
-    <img :src="imgData" alt="" id="pasted-img">
+    <div class="img-wrapper">
+      <img :src="imgData" alt="" id="pasted-img">
+    </div>
     <el-button @click="uploadClipboard">上传</el-button>
   </div>
 </template>
@@ -33,7 +35,6 @@ export default {
                 blob = clipboardData.items[i].getAsFile()
               }
             }
-            console.log(blob)
             this.imgBlob = blob
             let render = new FileReader()
             render.readAsDataURL(blob)
@@ -48,6 +49,12 @@ export default {
     uploadClipboard () {
       const token = localStorage.getItem('token')
       uploadFile(token, this.imgBlob)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.error(err)
+        })
     }
   }
 }

@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <el-button>el-button</el-button>
     <paste-area />
   </div>
 </template>
@@ -12,7 +10,7 @@ import PasteArea from './components/PasteArea'
 export default {
   name: 'app',
   created () {
-    this.$axios.get('http://localhost:9000/api/uptoken')
+    this.$axios.get('/api/uptoken')
       .then(res => {
         localStorage.setItem('token', res.data.uptoken)
       })

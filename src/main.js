@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import './plugins/axios'
 import App from './App.vue'
 import './registerServiceWorker'
-import './plugins/element.js'
+import './plugins/axios'
+import './plugins/element'
 
 Vue.config.productionTip = false
 

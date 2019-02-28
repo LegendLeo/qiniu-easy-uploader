@@ -1,32 +1,31 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <div>
-      <p>
-        If Element is successfully added to this project, you'll see an
-        <code v-text="'<el-button>'"></code>
-        below
-      </p>
-      <el-button>el-button</el-button>
-    </div>
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <el-button>el-button</el-button>
+    <paste-area />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import PasteArea from './components/PasteArea'
 
 export default {
   name: 'app',
+  created () {
+    this.$axios.get('http://localhost:9000/api/uptoken')
+      .then(res => {
+        localStorage.setItem('token', res.data.uptoken)
+      })
+  },
   components: {
-    HelloWorld
+    PasteArea
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

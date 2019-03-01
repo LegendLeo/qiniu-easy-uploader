@@ -2,7 +2,8 @@
     "AccessKey": "<Your Access Key>",  // https://portal.qiniu.com/user/key
     "SecretKey": "<Your Secret Key>",
     "Bucket": "<Your Bucket Name>",
-    "Port": 9000,
+    "Port": 9000,                      // 获取token的服务所在的端口
     "UptokenUrl": "uptoken",
-    "Domain": "<Your Bucket Domain>" // bucket domain eg:http://qiniu-plupload.qiniudn.com/
+    "Domain": "<Your Bucket Domain>",  // 你的七牛云的cdn服务地址
+    "Host": ""                         // 获取token的服务所在的host
 }

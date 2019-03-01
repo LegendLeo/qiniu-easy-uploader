@@ -17,7 +17,7 @@ export function uploadScreenshot (token, file, name) {
     mimeType: null
   }
   const now = new Date()
-  name = name ? name : formatTime(now, 'yyyyMMddhhmmss')
+  name = name || formatTime(now, 'yyyyMMddhhmmss')
 
   // 调用sdk上传接口获得相应的observable，控制上传和暂停
   let observable = qiniu.upload(file, name + '.png', token, putExtra, config)

@@ -1,21 +1,32 @@
 <template>
-  <div>
+  <div class="flex-wrapper">
     <div class="img-wrapper">
-      <img :src="imgData" alt="" id="pasted-img">
+      <img
+        v-show="imgData"
+        :src="imgData"
+        id="pasted-img"
+      >
     </div>
     <el-button @click="uploadClipboard">上传</el-button>
+    <div class="info-wrapper">
+      <el-input :value="imgUrl">
+        <template slot="prepend">图片地址：</template>
+      </el-input>
+      <el-button>复制</el-button>
+    </div>
   </div>
 </template>
 
 <script>
-import { uploadFile } from '@/utils'
+import { uploadScreenshot } from '@/utils'
 
 export default {
   name: 'PasteArea',
   data () {
     return {
       imgData: '',
-      imgBlob: null
+      imgBlob: null,
+      imgUrl: ''
     }
   },
   created () {
@@ -48,9 +59,10 @@ export default {
     },
     uploadClipboard () {
       const token = localStorage.getItem('token')
-      uploadFile(token, this.imgBlob)
+      uploadScreenshot(token, this.imgBlob)
         .then(res => {
           console.log(res)
+          this.imgUrl = res.url
         })
         .catch(err => {
           console.error(err)
@@ -63,5 +75,17 @@ export default {
 <style lang="less" scoped>
 #pasted-img {
   max-width: 800px;
+}
+.info-wrapper {
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  .el-input {
+    max-width: 380px;
+  }
+  .el-button {
+    position: relative;
+    z-index: 99;
+  }
 }
 </style>

@@ -1,11 +1,19 @@
 <template>
   <div id="app">
-    <paste-area />
+    <el-tabs type="border-card" class="main-tabs">
+      <el-tab-pane label="截图上传">
+        <paste-area />
+      </el-tab-pane>
+      <el-tab-pane label="选图上传">
+        <choose-area />
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
 <script>
 import PasteArea from './components/PasteArea'
+import ChooseArea from './components/ChooseArea'
 
 export default {
   name: 'app',
@@ -16,18 +24,41 @@ export default {
       })
   },
   components: {
-    PasteArea
+    PasteArea,
+    ChooseArea
   }
 }
 </script>
 
-<style>
+<style lang="less">
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+.main-tabs {
+  max-width: 1000px;
+  min-height: 500px;
+  margin: 60px auto;
+  display: flex;
+  flex-direction: column;
+  .el-tabs__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    .el-tab-pane {
+      flex: 1;
+      display: flex;
+    }
+  }
+}
+.flex-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 }
 </style>

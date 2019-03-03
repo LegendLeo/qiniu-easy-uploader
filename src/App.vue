@@ -8,12 +8,14 @@
         <choose-area />
       </el-tab-pane>
     </el-tabs>
+    <result-box :imgUrl="imgUrl" />
   </div>
 </template>
 
 <script>
 import PasteArea from './components/PasteArea'
 import ChooseArea from './components/ChooseArea'
+import ResultBox from './components/ResultBox'
 
 export default {
   name: 'app',
@@ -23,9 +25,15 @@ export default {
         localStorage.setItem('token', res.data.uptoken)
       })
   },
+  methods: {
+    changeImageUrl (url) {
+      this.imgUrl = url
+    }
+  },
   components: {
     PasteArea,
-    ChooseArea
+    ChooseArea,
+    ResultBox
   }
 }
 </script>

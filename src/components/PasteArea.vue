@@ -1,19 +1,22 @@
 <template>
   <div class="flex-wrapper">
     <div class="img-wrapper">
+      <div
+        class="img-placeholder"
+        v-if="!imgData">
+        <div class="note">Ctrl + v 粘贴截图</div>
+      </div>
       <img
-        v-show="imgData"
+        v-else
         :src="imgData"
         id="pasted-img"
       >
     </div>
-    <el-button @click="uploadClipboard">上传</el-button>
-    <div class="info-wrapper">
-      <el-input :value="imgUrl">
-        <template slot="prepend">图片地址：</template>
-      </el-input>
-      <el-button>复制</el-button>
-    </div>
+    <el-button
+      type="primary"
+      @click="uploadClipboard"
+      :disabled="!imgData"
+    >上传</el-button>
   </div>
 </template>
 
@@ -25,8 +28,7 @@ export default {
   data () {
     return {
       imgData: '',
-      imgBlob: null,
-      imgUrl: ''
+      imgBlob: null
     }
   },
   created () {
@@ -58,11 +60,10 @@ export default {
       })
     },
     uploadClipboard () {
-      const token = localStorage.getItem('token')
-      uploadScreenshot(token, this.imgBlob)
+      uploadScreenshot(this.imgBlob)
         .then(res => {
-          console.log(res)
-          this.imgUrl = res.url
+          this.$message.success('上传成功！')
+          this.$store.commit('changeImageUrl', [res])
         })
         .catch(err => {
           console.error(err)
@@ -73,19 +74,22 @@ export default {
 </script>
 
 <style lang="less" scoped>
-#pasted-img {
-  max-width: 800px;
-}
-.info-wrapper {
-  width: 500px;
+.img-placeholder {
+  background-color: #fff;
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  box-sizing: border-box;
+  width: 360px;
+  height: 180px;
   display: flex;
   justify-content: center;
-  .el-input {
-    max-width: 380px;
+  align-items: center;
+  .note {
+    font-size: 12px;
+    color: #606266;
   }
-  .el-button {
-    position: relative;
-    z-index: 99;
-  }
+}
+#pasted-img {
+  max-width: 800px;
 }
 </style>

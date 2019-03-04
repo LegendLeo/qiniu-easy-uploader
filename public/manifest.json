@@ -1,10 +1,10 @@
 {
-  "name": "qiniu-easy-uploader",
-  "short_name": "qiniu-easy-uploader",
+  "name": "七牛易传",
+  "short_name": "七牛易传",
   "icons": [
     {
-      "src": "./img/icons/android-chrome-192x192.png",
-      "sizes": "192x192",
+      "src": "./img/icons/android-chrome-128x128.png",
+      "sizes": "128x128",
       "type": "image/png"
     },
     {
@@ -15,6 +15,6 @@
   ],
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#4DBA87"
+  "background_color": "#ffffff",
+  "theme_color": "#409EFF"
 }

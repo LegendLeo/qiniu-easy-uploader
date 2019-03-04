@@ -3,15 +3,16 @@
     <div
       class="list-item"
       v-for="item in $store.state.images"
-      :key="item.hash"
-    >
+      :key="item.hash">
       <el-input
         :value="item.url"
-        readonly
-      >
+        readonly>
         <template slot="prepend">图片地址：</template>
       </el-input>
-      <el-button>复制</el-button>
+      <el-button
+        v-clipboard:copy="item.url"
+        v-clipboard:success="handleCopied"
+      >复制</el-button>
     </div>
   </div>
 </template>
@@ -21,6 +22,11 @@ export default {
   data () {
     return {
       images: this.$store.state.images
+    }
+  },
+  methods: {
+    handleCopied () {
+      this.$message.success('复制成功！')
     }
   }
 }

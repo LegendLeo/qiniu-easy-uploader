@@ -5,5 +5,4 @@
     "Port": 9000,                      // 获取token的服务所在的端口
     "UptokenUrl": "uptoken",
     "Domain": "<Your Bucket Domain>",  // 你的七牛云的cdn服务地址
-    "Host": ""                         // 获取token的服务所在的host
 }

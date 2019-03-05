@@ -15,14 +15,14 @@
 npm install
 ```
 
+### 获取秘钥服务 / Start server for getting upload token
+```
+npm run serve
+```
+
 ### 开发编译 / Compiles and hot-reloads for development
 ```
 npm run dev
-```
-
-### 获取秘钥服务 / Start server for get upload token
-```
-npm run serve
 ```
 
 ### 构建生产环境代码 / Compiles and minifies for production
@@ -34,3 +34,18 @@ npm run build
 ```
 npm run lint
 ```
+
+## 功能描述
+
+### 已经实现的功能
+
+- [x] 截图粘贴上传
+- [x] 选择图片上传
+- [x] 多个图片同时上传
+- [x] 上传成功后返回图片地址
+- [x] 点击按钮复制图片链接
+
+### 待实现和待完善的功能
+
+- [ ] 界面美化
+- [ ] 客户端填写七牛云配置

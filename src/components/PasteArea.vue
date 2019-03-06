@@ -3,7 +3,8 @@
     <div class="img-wrapper">
       <div
         class="img-placeholder"
-        v-if="!imgData">
+        v-if="!imgData"
+      >
         <div class="note">Ctrl + v 粘贴截图</div>
       </div>
       <img
@@ -43,17 +44,15 @@ export default {
             event.clipboardData || event.originalEvent.clipboardData
           if (clipboardData.items) {
             let blob
-            for (let i = 0; i < clipboardData.items.length; i++) {
-              if (clipboardData.items[i].type.indexOf('image') !== -1) {
-                blob = clipboardData.items[i].getAsFile()
+            if (clipboardData.items[0].type.indexOf('image') !== -1) {
+              blob = clipboardData.items[0].getAsFile()
+              this.imgBlob = blob
+              let render = new FileReader()
+              render.readAsDataURL(blob)
+              render.onload = e => {
+                // 输出base64编码
+                this.imgData = e.target.result
               }
-            }
-            this.imgBlob = blob
-            let render = new FileReader()
-            render.readAsDataURL(blob)
-            render.onload = e => {
-              // 输出base64编码
-              this.imgData = e.target.result
             }
           }
         }

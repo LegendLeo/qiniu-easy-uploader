@@ -1,8 +1,12 @@
-const config = require('./server/config.json')
+let PORT = 9000
+try {
+  let config = require('./server/config.json')
+  PORT = config.port
+} catch (error) {}
 
 module.exports = {
   publicPath: './',
   devServer: {
-    proxy: 'http://localhost:' + config.Port
+    proxy: 'http://localhost:' + PORT
   }
 }

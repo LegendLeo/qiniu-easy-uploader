@@ -9,6 +9,27 @@
       </el-tab-pane>
     </el-tabs>
     <result-box />
+    <el-dialog
+      title="七牛云配置"
+      :visible.sync="dialogConfigVisible">
+      <el-form label-width="100px">
+        <el-form-item label="AccessKey:">
+          <el-input v-model="qiniuInfo.accessKey"></el-input>
+        </el-form-item>
+        <el-form-item label="SecretKey:">
+          <el-input v-model="qiniuInfo.secretKey"></el-input>
+        </el-form-item>
+        <el-form-item label="Bucket:">
+          <el-input v-model="qiniuInfo.bucket"></el-input>
+        </el-form-item>
+        <el-form-item label="Domain:">
+          <el-input v-model="qiniuInfo.domain"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="postUploadToken(true)">提交</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -19,11 +40,50 @@ import ResultBox from './components/ResultBox'
 
 export default {
   name: 'app',
+  data () {
+    return {
+      hasConfig: localStorage.getItem('hasConfig'),
+      dialogConfigVisible: false,
+      qiniuInfo: JSON.parse(localStorage.getItem('qiniuInfo')) || {}
+    }
+  },
   created () {
-    this.$axios.get('/api/uptoken')
-      .then(res => {
-        localStorage.setItem('token', res.data.uptoken)
-      })
+    if (this.hasConfig) {
+      this.getUploadToken()
+    } else if (this.qiniuInfo.hasOwnProperty('accessKey')) {
+      this.postUploadToken()
+    } else {
+      this.$axios.get('/api/getconfig')
+        .then(res => {
+          let hasConfig = res.data.hasConfig
+          if (hasConfig) {
+            localStorage.setItem('hasConfig', 1)
+            this.getUploadToken()
+          } else {
+            this.dialogConfigVisible = true
+          }
+        })
+    }
+  },
+  methods: {
+    getUploadToken () {
+      this.$axios.get('/api/gettoken')
+        .then(res => {
+          localStorage.setItem('token', res.data.uptoken)
+        })
+    },
+    postUploadToken (isStore) {
+      if (isStore) {
+        localStorage.setItem('qiniuInfo', JSON.stringify(this.qiniuInfo))
+      }
+      this.$axios.post('/api/posttoken', this.qiniuInfo)
+        .then(res => {
+          console.log(res)
+          let token = res.data.uptoken
+          localStorage.setItem('token', token)
+          this.dialogConfigVisible = false
+        })
+    }
   },
   components: {
     PasteArea,

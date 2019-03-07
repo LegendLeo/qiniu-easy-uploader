@@ -8,7 +8,6 @@
         <choose-area />
       </el-tab-pane>
     </el-tabs>
-    <result-box />
     <el-dialog
       title="七牛云配置"
       :visible.sync="dialogConfigVisible">
@@ -36,7 +35,6 @@
 <script>
 import PasteArea from './components/PasteArea'
 import ChooseArea from './components/ChooseArea'
-import ResultBox from './components/ResultBox'
 
 export default {
   name: 'app',
@@ -49,16 +47,19 @@ export default {
   },
   created () {
     if (this.hasConfig) {
+      // 如果服务端有配置直接get获取token
       this.getUploadToken()
     } else if (this.qiniuInfo.hasOwnProperty('accessKey')) {
+      // 如果服务端没有配置而本地存储有token，使用post方法获取token
       this.postUploadToken()
     } else {
+      // 如果服务端没有配置，本地存储也没有token，使用post方法获取token（需先填写表单获取配置信息）
       this.$axios.get('/api/getconfig')
         .then(res => {
           let hasConfig = res.data.hasConfig
           if (hasConfig) {
-            localStorage.setItem('hasConfig', 1)
             this.getUploadToken()
+            localStorage.setItem('hasConfig', 1)
           } else {
             this.dialogConfigVisible = true
           }
@@ -78,7 +79,6 @@ export default {
       }
       this.$axios.post('/api/posttoken', this.qiniuInfo)
         .then(res => {
-          console.log(res)
           let token = res.data.uptoken
           localStorage.setItem('token', token)
           this.dialogConfigVisible = false
@@ -87,8 +87,7 @@ export default {
   },
   components: {
     PasteArea,
-    ChooseArea,
-    ResultBox
+    ChooseArea
   }
 }
 </script>

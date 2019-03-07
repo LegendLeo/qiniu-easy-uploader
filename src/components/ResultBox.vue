@@ -5,12 +5,12 @@
       v-for="item in $store.state.images"
       :key="item.hash">
       <el-input
-        :value="item.url"
+        :value="item.uri"
         readonly>
         <template slot="prepend">图片地址：</template>
       </el-input>
       <el-button
-        v-clipboard:copy="item.url"
+        v-clipboard:copy="item.uri"
         v-clipboard:success="handleCopied"
       >复制</el-button>
     </div>

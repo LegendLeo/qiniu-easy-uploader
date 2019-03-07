@@ -33,7 +33,7 @@ function getOption (config) {
     scope: config.bucket,
     deleteAfterDays: 1,
     returnBody:
-      `{"key":"$(key)","hash":"$(etag)","size":$(fsize),"bucket":"$(bucket)","url":"${config.domain}/$(key)"}`
+      `{"key":"$(key)","hash":"$(etag)","size":$(fsize),"bucket":"$(bucket)","uri":"${config.domain}/$(key)"}`
   }
   const putPolicy = new qiniu.rs.PutPolicy(options)
   return {

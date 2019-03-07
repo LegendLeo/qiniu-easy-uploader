@@ -15,8 +15,7 @@
     "qiniu-js": "^2.5.4",
     "register-service-worker": "^1.5.2",
     "vue": "^2.6.6",
-    "vue-clipboard2": "^0.3.0",
-    "vuex": "^3.0.1"
+    "vue-clipboard2": "^0.3.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.4.0",

@@ -49,7 +49,7 @@ app.get('/api/getconfig', function (req, res) {
   })
 })
 
-// 获取token（客户端传七牛云配置参数）
+// 获取token（服务端没有配置项的时候，客户端上传配置请求此路由）
 app.post('/api/posttoken', function (req, res) {
   let newConfig = req.body
   let newOption = getOption(req.body)
@@ -65,7 +65,7 @@ app.post('/api/posttoken', function (req, res) {
   }
 })
 
-// 获取token（服务端有配置项的时候会请求此路径）
+// 获取token（服务端有配置项的时候会请求此路由）
 app.get('/api/gettoken', function (req, res) {
   const token = option.putPolicy.uploadToken(option.mac)
   res.header('Cache-Control', 'max-age=0, private, must-revalidate')

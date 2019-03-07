@@ -5,6 +5,7 @@
       action
       :drag="true"
       accept
+      :show-file-list="false"
       :auto-upload="false"
       :on-change="choosePicture"
       :on-exceed="handleExceed"
@@ -16,7 +17,7 @@
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">拖拽图片到此处，或<em>选择图片上传</em></div>
       <div class="el-upload__tip"
-        slot="tip">只能上传图片文件，且不超过1Mb，最多一次上传5张</div>
+        slot="tip">只能上传图片文件，且不超过2Mb，最多一次上传5张</div>
     </el-upload>
     <transition-group tag="ul"
       class="upload-list"
@@ -72,7 +73,21 @@ export default {
   },
   methods: {
     choosePicture (file, fileList) {
-      this.imageList = fileList
+      const isImg = file => file.raw.type.indexOf('image') > -1
+      const isLt2M = file => file.size / 1024 / 1024 < 2
+      if (!isImg(file)) {
+        this.$message.error('只能上传图片!')
+        return
+      }
+      if (!isLt2M(file)) {
+        this.$message.error('上传图片大小不能超过 2MB!')
+        return
+      }
+      // 过滤不合格的文件和重复的图片
+      fileList = fileList.filter(item => {
+        return isImg(item) && isLt2M(item) && !this.imageList.some(cur => cur.name === item.name)
+      })
+      this.imageList = this.imageList.concat(fileList)
     },
     deleteItem (index) {
       this.imageList.splice(index, 1)
@@ -125,9 +140,6 @@ export default {
 }
 .flex-wrapper .btn-submit {
   margin: 20px 0 !important;
-}
-.el-upload-list {
-  display: none;
 }
 .upload-list {
   width: 500px;

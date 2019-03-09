@@ -21,6 +21,10 @@ fs.access(dir, function (err) {
     }
     option = getOption(config)
   }
+  // 确定服务端口后开启服务
+  app.listen(PORT, function () {
+    console.log('服务已在' + PORT + '端口启动')
+  })
 })
 
 /**
@@ -77,8 +81,4 @@ app.get('/api/gettoken', function (req, res) {
       domain: config.domain
     })
   }
-})
-
-app.listen(PORT, function () {
-  console.log('服务已在' + PORT + '端口启动')
 })

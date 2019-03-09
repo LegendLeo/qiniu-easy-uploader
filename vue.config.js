@@ -8,5 +8,6 @@ module.exports = {
   publicPath: './',
   devServer: {
     proxy: 'http://localhost:' + PORT
-  }
+  },
+  productionSourceMap: false
 }

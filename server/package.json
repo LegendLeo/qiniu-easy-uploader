@@ -1,0 +1,9 @@
+{
+  "name": "qiniu-easy-uploader",
+  "version": "1.0.0",
+  "dependencies": {
+    "express": "^4.16.2",
+    "body-parser": "^1.18.3",
+    "qiniu": "^7.2.1"
+  }
+}

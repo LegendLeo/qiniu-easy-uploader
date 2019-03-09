@@ -5,13 +5,11 @@
   "scripts": {
     "dev": "vue-cli-service serve",
     "serve": "node ./server/app.js",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build && cp -r server/ dist/ && rm -rf dist/server/node_modules/ && mv dist/server/package.json dist/",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "body-parser": "^1.18.3",
     "element-ui": "^2.4.5",
-    "qiniu": "^7.2.1",
     "qiniu-js": "^2.5.4",
     "register-service-worker": "^1.5.2",
     "vue": "^2.6.6",

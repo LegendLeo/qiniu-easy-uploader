@@ -65,7 +65,7 @@ export default {
               let render = new FileReader()
               render.readAsDataURL(blob)
               render.onload = e => {
-                // 输出base64编码
+                // 输出base64编码以供页面上显示
                 this.imgData = e.target.result
               }
             }
@@ -78,7 +78,13 @@ export default {
         .then(res => {
           this.$message.success('上传成功！')
           this.imgUrl = res.uri
-          this.markdownUrl = `![${this.imgName}](${res.uri})`
+          let imgName
+          if (!this.imgName) {
+            imgName = res.key.substr(0, 8)
+          } else {
+            imgName = this.imgName
+          }
+          this.markdownUrl = `![${imgName}](${res.uri})`
         })
         .catch(err => {
           console.error(err)

@@ -80,7 +80,7 @@ export default {
           this.imgUrl = res.uri
           let imgName
           if (!this.imgName) {
-            imgName = res.key.substr(0, 8)
+            imgName = res.key.substr(9, 6)
           } else {
             imgName = this.imgName
           }
@@ -88,6 +88,14 @@ export default {
         })
         .catch(err => {
           console.error(err)
+          let code = err.message.match(/code: \d{3}/)[0]
+          code = code.replace('code: ', '')
+          if (code === '614') {
+            this.$message.error('上传失败，今日已上传过同名文件！')
+          } else {
+            this.$message.error('上传失败！')
+            this.$message.error(err.message)
+          }
         })
     },
     handleCopied () {

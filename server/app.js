@@ -35,7 +35,6 @@ function getOption (config) {
   const mac = new qiniu.auth.digest.Mac(config.accessKey, config.secretKey)
   const options = {
     scope: config.bucket,
-    deleteAfterDays: 1,
     returnBody:
       `{"key":"$(key)","hash":"$(etag)","size":$(fsize),"bucket":"$(bucket)","uri":"${config.domain}/$(key)"}`
   }

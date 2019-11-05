@@ -21,7 +21,11 @@ function _uploadFile (file, name) {
  */
 export function uploadScreenshot (file, name) {
   const now = new Date()
-  name = name || formatTime(now, 'yyyyMMddhhmmss')
+  if (name) {
+    name = `${formatTime(now, 'yyyyMMdd')}/${name}`
+  } else {
+    name = `${formatTime(now, 'yyyyMMdd')}/${formatTime(now, 'hhmmss')}`
+  }
 
   // 调用sdk上传接口获得相应的observable，控制上传和暂停
   return new Promise((resolve, reject) => {
